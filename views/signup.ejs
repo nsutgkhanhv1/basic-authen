@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <input type="text" name="user" id="user" placeholder="user">
+        <input type="password" name="password" id="password" placeholder="password">
+        <button id="signup-btn">Sign up</button>
+        <br>
+        <h4 id='signup-mess'></h4>
+    </div>
+    <script>
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays * 0.7 * 60 * 60 * 1000));
+            var expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        $('#signup-btn').on('click',signup);
+        function signup() {
+            var user = $('#user').val();
+            var password = $('#password').val();
+            $.ajax({
+                url: "http://localhost:5000/signup",
+                type: "POST",
+                data: {
+                    user: user,
+                    password: password,
+                }
+            })
+            .then(data=>{
+                window.location.href = "/login";
+            })
+        }
+    </script>
+</body>
+</html>
